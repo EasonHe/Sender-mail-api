@@ -26,13 +26,10 @@ class geturl:
     def GET(self):
         pass
     def POST(self):
-        data=web.data()
-        prog = re.compile('tos=(.*)&subject=(.*)&content=(.*)')
-        result = prog.match(data)
-        mems = result.groups()
-        tos = mems[0].split()
-        subject = mems[1]
-        content = mems[-1]
+        data = web.input()
+        tos = data.get('tos').split(',')
+        subject = data.get('subject')
+        content = data.get('content')
         print(tos,subject,content)
         if  True == mailconf(tos, subject, content):
             return   'success' + '\n'
